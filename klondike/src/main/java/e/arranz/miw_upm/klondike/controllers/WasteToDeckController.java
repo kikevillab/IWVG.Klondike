@@ -22,7 +22,7 @@ public class WasteToDeckController extends MoveController {
     @Override
     public Error validateMove() {
         if (game.isWasteEmpty()) {
-            return new Error(ErrorEnum.WASTE_EMPTY);
+            return new Error(ErrorList.WASTE_EMPTY);
         }
         return null;
     }

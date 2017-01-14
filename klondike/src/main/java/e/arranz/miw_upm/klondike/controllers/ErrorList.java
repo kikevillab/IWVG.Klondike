@@ -1,9 +1,6 @@
 package e.arranz.miw_upm.klondike.controllers;
 
-import e.arranz.miw_upm.klondike.models.Card;
-
-
-public enum ErrorEnum {
+public enum ErrorList {
 	
 	NOT_VALID_MOVE("ERROR!  No se puede colocar esa carta en esa posición"),
 	NOT_ENOUGH_CARDS("ERROR!  No se pueden coger más cartas de las que hay en un montón"),
@@ -18,13 +15,9 @@ public enum ErrorEnum {
     
 	private String message;
 	
-	private ErrorEnum(String message){
+	private ErrorList(String message){
 		this.message = message;
 	}
-	
-	private ErrorEnum(Card cardUp, Card cardDown){
-        this.message="ERROR!  No se puede poner "+cardUp.toString()+" sobre "+cardDown.toString();
-    }
 	
 	@Override
 	public String toString(){

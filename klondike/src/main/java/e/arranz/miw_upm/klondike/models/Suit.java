@@ -17,5 +17,12 @@ public enum Suit {
     public String getValue() {
         return value;
     }
+    
+    public Color getColor(){
+    	if(this.equals(Suit.CORAZONES) || this.equals(Suit.DIAMANTES))
+    		return Color.RED;
+    	else
+    		return Color.BLACK;
+    }
 
 }

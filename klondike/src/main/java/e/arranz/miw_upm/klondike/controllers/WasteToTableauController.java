@@ -1,7 +1,7 @@
 package e.arranz.miw_upm.klondike.controllers;
 
 import e.arranz.miw_upm.klondike.models.TableauPiles;
-import e.arranz.miw_upm.klondike.utils.IO;
+import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 
 public class WasteToTableauController extends MoveController {
@@ -14,18 +14,12 @@ public class WasteToTableauController extends MoveController {
 
     @Override
     public void control() {
-    	IO io = new IO();
-        int numTableau = io.readInt("¿A qué escalera? [1-7]:");
-        while (numTableau < 1 || numTableau > 7) {
-            io.writeln("ERROR!!! El número de la escalera debe ser entre 1 y 7 inclusives");
-            numTableau = io.readInt("¿A qué escalera? [1-7]:");
-        }
+        int numTableau = new LimitedIntDialog("¿A qué escalera?", 1, TableauPiles.NUMBER_OF_PILES).read();
         setNumTableau(numTableau - 1);
-    	
-    	
+    	    	
         TableauPiles tableau = game.getTableauPile(this.numTableau);
         if (game.isWasteEmpty()) {
-            System.out.println(ErrorEnum.WASTE_EMPTY);
+            System.out.println(ErrorList.WASTE_EMPTY);
         } else if (checkFaceUpCard(tableau) != null) {
             System.out.println(checkFaceUpCard(tableau));
         } else if (validateMove() != null) {
@@ -42,7 +36,7 @@ public class WasteToTableauController extends MoveController {
             if (game.getLastCardWaste().hasValue("K")) {
                 return null;
             } else {
-                return new Error(ErrorEnum.NOT_VALID_MOVE);
+                return new Error(ErrorList.NOT_VALID_MOVE);
             }
         } else if (!tableau.getLastCard().validAboveTableau(game.getLastCardWaste())) {
             return new Error(game.getLastCardWaste(), tableau.getLastCard());
@@ -54,10 +48,10 @@ public class WasteToTableauController extends MoveController {
         if (tableau.hasFaceUpCards() || tableau.isEmpty()) {
             return null;
         }
-        return new Error(ErrorEnum.FLIPCARD_ERROR);
+        return new Error(ErrorList.FLIPCARD_ERROR);
     }
 
-    public void setNumTableau(int numTableau) {
+    private void setNumTableau(int numTableau) {
         this.numTableau = numTableau;
     }
 

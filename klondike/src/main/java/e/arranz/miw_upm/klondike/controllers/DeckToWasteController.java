@@ -16,20 +16,20 @@ public class DeckToWasteController extends MoveController {
             System.out.println(error);
         } else {
             for (int i = 0; i < MAX_CARDS_DISCARD; i++) {
-                if (validateMove() == null) {
-                    game.addCardWaste(game.popCardDeck());
-                } else {
-                    break;
-                }
+                if (validateMove() != null) {
+                	break;                    
+                } 
+                
+                game.addCardWaste(game.popCardDeck());
             }
-            game.setWasteDisplaySize(3);
+            game.setWasteDisplaySize(MAX_CARDS_DISCARD);
         }
     }
 
     @Override
     public Error validateMove() {
         if (game.isDeckEmpty()) {
-            return new Error(ErrorEnum.DECK_EMPTY);
+            return new Error(ErrorList.DECK_EMPTY);
         }
         return null;
     }

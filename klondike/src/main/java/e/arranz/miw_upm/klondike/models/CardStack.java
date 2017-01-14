@@ -32,4 +32,12 @@ public class CardStack {
     public int size(){
     	return this.cards.size();
     }
+    
+    public String toString(){
+    	String toString = "";
+        for (Card card : cards) {
+            toString += card.toString();
+        }
+        return toString;
+    }
 }

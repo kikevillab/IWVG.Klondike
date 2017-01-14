@@ -7,7 +7,7 @@ public class Error {
 
     private String message;
 
-    public Error(ErrorEnum error) {
+    public Error(ErrorList error) {
         this.message = error.toString();
     }
 
@@ -19,4 +19,5 @@ public class Error {
     public String toString() {
         return message;
     }
+
 }

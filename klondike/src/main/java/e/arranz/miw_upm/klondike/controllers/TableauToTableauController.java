@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import e.arranz.miw_upm.klondike.models.TableauPiles;
 import e.arranz.miw_upm.klondike.models.Card;
-import e.arranz.miw_upm.klondike.utils.IO;
+import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 public class TableauToTableauController extends MoveController {
 
@@ -16,27 +16,14 @@ public class TableauToTableauController extends MoveController {
 
     @Override
     public void control() {
-    	IO io = new IO();
-        int numTableauOrigin = io.readInt("¿De qué escalera? [1-7]:");
-        while (numTableauOrigin < 1 || numTableauOrigin > 7) {
-            io.writeln("ERROR!!! El número de la escalera debe ser entre 1 y 7 inclusives");
-            numTableauOrigin = io.readInt("¿De qué escalera? [1-7]:");
-        }
-        int numCards = io.readInt("¿Cuántas cartas?");
-        int numTableauTarget = io.readInt("¿A qué escalera? [1-7]:");
-        while (numTableauTarget < 1 || numTableauTarget > 7) {
-            io.writeln("ERROR!!! El número de la escalera debe ser entre 1 y 7 inclusives");
-            numTableauTarget = io.readInt("¿A qué escalera? [1-7]:");
-        }
-        setNumTableauOrigin(numTableauOrigin - 1);
-        setNumCards(numCards);
-        setNumTableauTarget(numTableauTarget - 1);
-    	
-    	
+        setNumTableauOrigin(new LimitedIntDialog("¿De qué escalera?", 1, 7).read() - 1);
+        setNumCards(new LimitedIntDialog("¿Cuántas cartas?", 1, 12).read());
+        setNumTableauTarget(new LimitedIntDialog("¿A qué escalera?", 1, 7).read() - 1);
+    	    	
         TableauPiles tableauOrigin = game.getTableauPile(this.numTableauOrigin);
         TableauPiles tableauTarget = game.getTableauPile(this.numTableauTarget);
         if (tableauOrigin.isEmpty()) {
-            System.out.println(ErrorEnum.TABLEAU_EMPTY);
+            System.out.println(ErrorList.TABLEAU_EMPTY);
         } else if (checkFaceUpCard(tableauOrigin) != null) {
             System.out.println(checkFaceUpCard(tableauOrigin));
         } else if (checkFaceUpCard(tableauTarget) != null) {
@@ -62,11 +49,11 @@ public class TableauToTableauController extends MoveController {
             if (tableauOrigin.getFaceUpCard(numCards - 1).hasValue("K")) {
                 return null;
             } else {
-                return new Error(ErrorEnum.NOT_VALID_MOVE);
+                return new Error(ErrorList.NOT_VALID_MOVE);
             }
         } else {
             if (tableauOrigin.getFaceUpCardsNumber() < numCards) {
-                return new Error(ErrorEnum.NOT_ENOUGH_CARDS);
+                return new Error(ErrorList.NOT_ENOUGH_CARDS);
             } else if (!tableauTarget.getLastCard().validAboveTableau(tableauOrigin.getFaceUpCard(numCards))) {
                 return new Error(tableauOrigin.getFaceUpCard(numCards), tableauTarget.getLastCard());
             }
@@ -74,15 +61,15 @@ public class TableauToTableauController extends MoveController {
         return null;
     }
 
-    public void setNumTableauOrigin(int numTableauOrigin) {
+    private void setNumTableauOrigin(int numTableauOrigin) {
         this.numTableauOrigin = numTableauOrigin;
     }
 
-    public void setNumTableauTarget(int numTableauTarget) {
+    private void setNumTableauTarget(int numTableauTarget) {
         this.numTableauTarget = numTableauTarget;
     }
     
-    public void setNumCards(int numCards){
+    private void setNumCards(int numCards){
     	this.numCards = numCards;
     }
 
@@ -90,7 +77,7 @@ public class TableauToTableauController extends MoveController {
         if (tableau.hasFaceUpCards()) {
             return null;
         }
-        return new Error(ErrorEnum.NO_FACEUP_CARDS);
+        return new Error(ErrorList.NO_FACEUP_CARDS);
     }
 
 }

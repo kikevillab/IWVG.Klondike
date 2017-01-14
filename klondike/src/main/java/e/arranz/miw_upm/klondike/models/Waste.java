@@ -11,14 +11,11 @@ public class Waste extends CardStack {
     }
 
     public void setDisplaySize(int size) {
-        assert size > 0;
-        assert size < 4;
         this.size = size;
     }
 
     @Override
     public Card popCard() {
-        assert cards.isEmpty() == false;
         if (size == 1) {
             size = 3;
         } else {
@@ -31,21 +28,13 @@ public class Waste extends CardStack {
     public String toString() {
         if (cards.isEmpty()) {
             return "<vacío>";
+        } 
+        if (cards.size() < size) {
+            return cards.toString();
         } else {
-            if (cards.size() < size) {
-                return toStringCardList(cards);
-            } else {
-                List<Card> lastCards = cards.subList(cards.size() - size, cards.size());
-                return toStringCardList(lastCards);
-            }
+            List<Card> lastCards = cards.subList(cards.size() - size, cards.size());
+            return lastCards.toArray().toString();
         }
-    }
-
-    public String toStringCardList(List<Card> cards) {
-        String toString = "";
-        for (Card card : cards) {
-            toString += card.toString();
-        }
-        return toString;
+        
     }
 }

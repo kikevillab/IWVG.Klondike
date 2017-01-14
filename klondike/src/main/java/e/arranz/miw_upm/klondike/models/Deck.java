@@ -20,8 +20,9 @@ public class Deck extends CardStack {
     public String toString() {
         if (cards.isEmpty()) {
             return "<vacío>";
-        } else {
-            return "[X,X]";
-        }
+        } 
+
+        return "[X,X]";
+        
     }
 }

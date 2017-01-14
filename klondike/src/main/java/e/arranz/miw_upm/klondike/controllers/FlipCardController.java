@@ -1,8 +1,7 @@
 package e.arranz.miw_upm.klondike.controllers;
 
 import e.arranz.miw_upm.klondike.models.TableauPiles;
-import e.arranz.miw_upm.klondike.utils.IO;
-
+import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 public class FlipCardController extends MoveController {
 
@@ -14,20 +13,14 @@ public class FlipCardController extends MoveController {
 
     @Override
     public void control() {
-    	IO io = new IO();
-        int numTableau = io.readInt("¿En qué escalera? [1-7]:");
-        while (numTableau < 1 || numTableau > 7) {
-            io.writeln("ERROR!!! El número de la escalera debe ser entre 1 y 7 inclusives");
-            numTableau = io.readInt("¿En qué escalera? [1-7]:");
-        }
-        
+        int numTableau = new LimitedIntDialog("¿En qué escalera?", 1, 7).read();
         setNumTableau(numTableau -1);
            	
         TableauPiles tableau = game.getTableauPile(this.numTableau);
         Error error = validateMove();
         if (tableau.isEmpty()) {
-            System.out.println(ErrorEnum.TABLEAU_EMPTY);
-        } else if (validateMove() != null) {
+            System.out.println(ErrorList.TABLEAU_EMPTY);
+        } else if (error != null) {
             System.out.println(error);
         } else {
             tableau.flipCard();
@@ -36,15 +29,14 @@ public class FlipCardController extends MoveController {
 
     @Override
     public Error validateMove() {
-        if (!game.getTableauPile(numTableau).hasFaceUpCards()) {
-            if (!game.getTableauPile(numTableau).hasFaceDownCards()) {
-                return new Error(ErrorEnum.NO_FACEDOWN_CARDS);
-            } else {
-                return null;
-            }
-
+        if (game.getTableauPile(numTableau).hasFaceUpCards()) {
+        	return new Error(ErrorList.EXISTS_FACEUP_CARDS);
         }
-        return new Error(ErrorEnum.EXISTS_FACEUP_CARDS);
+        if (!game.getTableauPile(numTableau).hasFaceDownCards()) {
+            return new Error(ErrorList.NO_FACEDOWN_CARDS);
+        }
+
+        return null;
     }
     
     private void setNumTableau(int numTableau){

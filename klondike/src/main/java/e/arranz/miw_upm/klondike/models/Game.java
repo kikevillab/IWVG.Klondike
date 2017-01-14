@@ -144,6 +144,7 @@ public class Game implements GameInterface {
         for (TableauPiles tableauPile : tableauPiles) {
             tableauPile.clear();
         }
+        setState(State.FINISHED);
     }
 
 }

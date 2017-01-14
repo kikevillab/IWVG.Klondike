@@ -1,6 +1,6 @@
 package e.arranz.miw_upm.klondike.controllers;
 
-import e.arranz.miw_upm.klondike.utils.IO;
+import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 public class WasteToFoundationController extends MoveController {
 
@@ -12,17 +12,11 @@ public class WasteToFoundationController extends MoveController {
 
     @Override
     public void control() {
-    	IO io = new IO();
-        int numFoundation = io.readInt("¿A qué palo? [1-4]:");
-        while (numFoundation < 1 || numFoundation > 4) {
-            io.writeln("ERROR!!! El número del palo debe ser entre 1 y 4 inclusives");
-            numFoundation = io.readInt("¿A qué palo? [1-4]:");
-        }
-        setNumFoundation(numFoundation - 1);
- 
+    	int numFoundation = new LimitedIntDialog("¿A qué palo?", 1, 4).read();
+        setNumFoundation(numFoundation - 1); 
     	
         if (game.isWasteEmpty()) {
-            System.out.println(ErrorEnum.WASTE_EMPTY);
+            System.out.println(ErrorList.WASTE_EMPTY);
         } else if (validateMove() != null) {
             System.out.println(validateMove());
         } else {
@@ -38,13 +32,13 @@ public class WasteToFoundationController extends MoveController {
                 if (game.getLastCardWaste().hasValue("A")) {
                     return null;
                 }
-                return new Error(ErrorEnum.NOT_VALID_MOVE);
+                return new Error(ErrorList.NOT_VALID_MOVE);
             } else if (!game.getFoundation(numFoundation).getLastCard().validAboveFoundation(game.getLastCardWaste())) {
                 return new Error(game.getLastCardWaste(), game.getFoundation(numFoundation).getLastCard());
             }
             return null;
         } else if (game.getFoundation(numFoundation).isEmpty()){
-            return new Error(ErrorEnum.NOT_VALID_MOVE);
+            return new Error(ErrorList.NOT_VALID_MOVE);
         }else{
             return new Error(game.getLastCardWaste(), game.getFoundation(numFoundation).getLastCard());
         }
