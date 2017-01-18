@@ -4,6 +4,7 @@ import e.arranz.miw_upm.klondike.controllers.MenuController;
 import e.arranz.miw_upm.klondike.controllers.OperationController;
 import e.arranz.miw_upm.klondike.controllers.OperationControllerBuilder;
 import e.arranz.miw_upm.klondike.utils.IO;
+import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 
 public class MenuView {
@@ -20,32 +21,16 @@ public class MenuView {
     public void showStatus() {
         IO io = new IO();
         io.writeln("===========================");
-        io.write("Baraja: ");
-        io.writeln(menuController.getDeck());
-        io.write("Descarte: ");
-        io.writeln(menuController.getWaste());
-        io.write("Palo corazones: ");
-        io.writeln(menuController.getFoundation(0));
-        io.write("Palo diamantes: ");
-        io.writeln(menuController.getFoundation(1));
-        io.write("Palo tréboles: ");
-        io.writeln(menuController.getFoundation(2));
-        io.write("Palo picas: ");
-        io.writeln(menuController.getFoundation(3));
-        io.write("Escalera 1: ");
-        io.writeln(menuController.getTableauPile(0));
-        io.write("Escalera 2: ");
-        io.writeln(menuController.getTableauPile(1));
-        io.write("Escalera 3: ");
-        io.writeln(menuController.getTableauPile(2));
-        io.write("Escalera 4: ");
-        io.writeln(menuController.getTableauPile(3));
-        io.write("Escalera 5: ");
-        io.writeln(menuController.getTableauPile(4));
-        io.write("Escalera 6: ");
-        io.writeln(menuController.getTableauPile(5));
-        io.write("Escalera 7: ");
-        io.writeln(menuController.getTableauPile(6));
+        io.writeln("Baraja: " + menuController.getDeck());
+        io.writeln("Descarte: " + menuController.getWaste());
+        io.writeln("Palo corazones: " + menuController.getFoundation(0));
+        io.writeln("Palo diamantes: " + menuController.getFoundation(1));
+        io.writeln("Palo tréboles: " + menuController.getFoundation(2));
+        io.writeln("Palo picas: " + menuController.getFoundation(3));
+        for(int i = 0; i < 7; i++){
+        	io.writeln("Escalera "+(i+1)+": " + menuController.getTableauPile(i));
+        }      
+        
         io.writeln("===========================");
     }
 
@@ -65,14 +50,7 @@ public class MenuView {
     public OperationController interact() {
         showStatus();
         showMenu();
-        IO io = new IO();
-        int numOption = io.readInt("Opción? [1-9]:");
-        while ((numOption > 9) || (numOption < 1)) {
-            if ((numOption > 9) || (numOption < 1)) {
-                io.writeln("ERROR! La opción debe ser entre 1 y 9 inclusives");
-            }
-            numOption = io.readInt("Opción? [1-9]:");
-        }
+        int numOption = new LimitedIntDialog("Opción?", 1, 9).read();
         return operationControllerBuilder.getOperationController(numOption);
     }
 }

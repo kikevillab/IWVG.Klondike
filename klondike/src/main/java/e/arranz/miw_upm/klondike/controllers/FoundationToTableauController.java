@@ -1,6 +1,9 @@
 package e.arranz.miw_upm.klondike.controllers;
 
+import e.arranz.miw_upm.klondike.models.Error;
+import e.arranz.miw_upm.klondike.models.ErrorList;
 import e.arranz.miw_upm.klondike.models.TableauPiles;
+import e.arranz.miw_upm.klondike.utils.IO;
 import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 
@@ -19,11 +22,11 @@ public class FoundationToTableauController extends MoveController {
     	
         TableauPiles tableau = game.getTableauPile(this.numTableau);
         if (game.getFoundation(this.numFoundation).isEmpty()) {
-            System.out.println(ErrorList.FOUNDATION_EMPTY);
+            new IO().writeln(ErrorList.FOUNDATION_EMPTY.toString());
         } else if (checkFaceUpCard(tableau) != null) {
-            System.out.println(checkFaceUpCard(tableau));
+        	new IO().writeln(checkFaceUpCard(tableau).toString());
         } else if (validateMove() != null) {
-            System.out.println(validateMove());
+        	new IO().writeln(validateMove().toString());
         } else {
             tableau.addCardFaceUp(game.popCardFoundation(this.numFoundation));
         }

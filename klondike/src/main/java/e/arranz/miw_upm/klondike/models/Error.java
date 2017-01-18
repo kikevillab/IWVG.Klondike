@@ -1,6 +1,5 @@
-package e.arranz.miw_upm.klondike.controllers;
+package e.arranz.miw_upm.klondike.models;
 
-import e.arranz.miw_upm.klondike.models.Card;
 
 
 public class Error {

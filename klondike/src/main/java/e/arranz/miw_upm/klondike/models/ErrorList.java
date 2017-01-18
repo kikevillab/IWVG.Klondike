@@ -1,4 +1,4 @@
-package e.arranz.miw_upm.klondike.controllers;
+package e.arranz.miw_upm.klondike.models;
 
 public enum ErrorList {
 	

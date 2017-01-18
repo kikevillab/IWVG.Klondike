@@ -1,5 +1,9 @@
 package e.arranz.miw_upm.klondike.controllers;
 
+import e.arranz.miw_upm.klondike.models.Error;
+import e.arranz.miw_upm.klondike.models.ErrorList;
+import e.arranz.miw_upm.klondike.utils.IO;
+
 
 
 public class WasteToDeckController extends MoveController {
@@ -12,7 +16,7 @@ public class WasteToDeckController extends MoveController {
     public void control() {
         Error error = validateMove();
         if (error != null) {
-            System.out.println(error);
+        	new IO().writeln(error.toString());
         }
         while (!game.isWasteEmpty()) {
             game.addCardDeck(game.popCardWaste());

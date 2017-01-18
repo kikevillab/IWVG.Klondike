@@ -1,5 +1,6 @@
 package e.arranz.miw_upm.klondike.controllers;
 
+import e.arranz.miw_upm.klondike.models.Error;
 import e.arranz.miw_upm.klondike.models.State;
 
 

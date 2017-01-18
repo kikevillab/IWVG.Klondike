@@ -1,5 +1,8 @@
 package e.arranz.miw_upm.klondike.controllers;
 
+import e.arranz.miw_upm.klondike.models.Error;
+import e.arranz.miw_upm.klondike.models.ErrorList;
+import e.arranz.miw_upm.klondike.utils.IO;
 import e.arranz.miw_upm.klondike.utils.LimitedIntDialog;
 
 public class WasteToFoundationController extends MoveController {
@@ -16,9 +19,9 @@ public class WasteToFoundationController extends MoveController {
         setNumFoundation(numFoundation - 1); 
     	
         if (game.isWasteEmpty()) {
-            System.out.println(ErrorList.WASTE_EMPTY);
+        	new IO().writeln(ErrorList.WASTE_EMPTY.toString());
         } else if (validateMove() != null) {
-            System.out.println(validateMove());
+        	new IO().writeln(validateMove().toString());
         } else {
             game.getFoundation(this.numFoundation).addCard(game.popCardWaste());
             super.control();

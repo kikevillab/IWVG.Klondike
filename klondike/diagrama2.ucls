@@ -101,8 +101,7 @@
     </display>  
   </class>  
   <enumeration id="11" language="java" name="e.arranz.miw_upm.klondike.controllers.ErrorList" project="klondike" 
-    file="/klondike/src/main/java/e/arranz/miw_upm/klondike/controllers/ErrorList.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+    file="/klondike/src/main/java/e/arranz/miw_upm/klondike/models/ErrorList.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="297" width="195" x="137" y="-54"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -120,7 +119,7 @@
     </display>  
   </class>  
   <class id="13" language="java" name="e.arranz.miw_upm.klondike.controllers.Error" project="klondike" 
-    file="/klondike/src/main/java/e/arranz/miw_upm/klondike/controllers/Error.java" binary="false" corner="BOTTOM_RIGHT">    
+    file="/klondike/src/main/java/e/arranz/miw_upm/klondike/models/Error.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="135" width="168" x="972" y="-54"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
